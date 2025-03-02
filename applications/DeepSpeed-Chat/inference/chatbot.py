@@ -4,28 +4,39 @@
 # DeepSpeed Team
 
 import argparse
-import re
-import logging
-import transformers  # noqa: F401
-import os
 import json
-from transformers import pipeline, set_seed
+import logging
+import os
+import re
+
+import transformers  # noqa: F401
 from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
+from transformers import pipeline, set_seed
 
 
 def parse_args():
+    # 创建ArgumentParser对象，用于解析命令行参数
     parser = argparse.ArgumentParser()
+
+    # 添加一个名为"--path"的参数，类型为字符串，并附带帮助信息
     parser.add_argument("--path",
                         type=str,
-                        help="Directory containing trained actor model")
+                        help="Directory containing trained actor model")  # 包含训练好的actor模型的目录
+
+    # 添加一个名为"--max_new_tokens"的参数，类型为整数，默认值为128，并附带帮助信息
     parser.add_argument(
         "--max_new_tokens",
         type=int,
         default=128,
-        help="Maximum new tokens to generate per response",
+        help="Maximum new tokens to generate per response",  # 每次响应生成的最大新令牌数
     )
+
+    # 解析命令行参数
     args = parser.parse_args()
+
+    # 返回解析后的参数对象
     return args
+
 
 
 def get_generator(path):
@@ -113,6 +124,7 @@ if __name__ == "__main__":
 
     args = parse_args()
     main(args)
+    print("\nExiting...")
 
 # Example:
 """
